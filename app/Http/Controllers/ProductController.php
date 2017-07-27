@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\UnitRumah;
 
 class ProductController extends Controller
 {
-    public function CreateUnit(){
+    public function CreateUnit(Request $request){
         DB::beginTransaction(); /* Fungsi ini agar dapat melakukan banyak transaksi data 
                                 kedalam database. */
 
@@ -58,28 +59,14 @@ class ProductController extends Controller
         }
     }
 
-    add function DeleteUnit(){
+    public function DeleteUnit(Request $request){
         DB::beginTransaction();
-
-        try 
-        {
-            // Validasi ID
-            $this->validate($request, [
-                'id' => 'required',
-            ]);
-            
-            // Masukan input request kedalam variable baru
+        try {     
+            // Raw Query Deletion, jawaban untuk soal exam:
             $id = $request->input('id');
+            $pList = DB::delete('delete * from units where id = ?', [$id]);
             
-            // Menggunakan fungsi find() dari Eloquent
-            $product = UnitRumah::find($id);
-            $product->delete();
-
-            if(empty($product)) 
-            {
-            return response()->json(["message" => "User Not Found!"], 404);
-            }
-
+            //Eloquent 
             $newProduct = UnitRumah::get();
 
             DB::commit();

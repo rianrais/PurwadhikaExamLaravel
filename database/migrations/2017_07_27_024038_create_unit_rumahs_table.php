@@ -13,7 +13,7 @@ class CreateUnitRumahsTable extends Migration
      */
     public function up()
     {
-        Schema::create('units', function (Blueprint $table) {
+        Schema::create('unit_rumahs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('kavling');
             $table->string('blok');
