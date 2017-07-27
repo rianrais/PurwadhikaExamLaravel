@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'unit'], function(){
     Route::get('', function(){
-        $index = DB::select('units')->get();
+        $index = DB::table('units')->get();
         return response()->json($index, 200);
     });
     Route::post('add', 'ProductController@CreateUnit');
