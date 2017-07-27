@@ -32,7 +32,7 @@ class ProductController extends Controller
             $addPropertySize = $request->input('luas_bangunan');
 
             //Dari variable diatas dimasukan kedalam DB.
-            $product = new UnitRumah;
+            $product = new Unit;
             $product->kavling = $addKavling;
             $product->blok = $addBlock;
             $product->nomor_rumah = $addNo;
@@ -43,7 +43,7 @@ class ProductController extends Controller
 
 
             // Setelah save() mereturn data kembali.
-            $newProduct = UnitRumah::get();
+            $newProduct = Unit::get();
 
             /*Message yang dikeluarkan setelah sukses memasukan data.
             Fungsi DB commit memasukan semua data yang sukses */
@@ -64,10 +64,10 @@ class ProductController extends Controller
         try {     
             // Raw Query Deletion, jawaban untuk soal exam:
             $id = $request->input('id');
-            $pList = DB::delete('delete * from units where id = ?', [$id]);
+            $pList = DB::delete('delete from units where id = ?', [$id]);
             
             //Eloquent 
-            $newProduct = UnitRumah::get();
+            $newProduct = Unit::get();
 
             DB::commit();
             return response()->json($vendor, 200);
